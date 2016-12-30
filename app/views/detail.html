@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" href="/css/detail.css">
+</head>
+<body>
+{{include '/include/nav-top'}}
+{{include '/include/nav-search'}}
+<div class="container">
+	<h2 class="movie-name">{{movie.title}}</h2>
+	<div class="row">
+		<div class="col-md-6 clearfix">
+			<div class="main-pic col-md-4">
+				<img src="{{movie.poster}}">
+			</div>
+			<div class="info col-md-8">
+				<p><span class="title">导演:</span>{{movie.director}}</p>
+				<p><span class="title">主演:</span>{{movie.actors}}</p>
+				<p><span class="title">语言:</span>{{movie.language}}</p>
+				<p><span class="title">制片国家:</span>{{movie.country}}</p>
+				<p><span class="title">预告片:</span><a href="{{movie.flash}}">预告片地址</a></p>
+				<p><span class="title">上映时间:</span>{{movie.year}}</p>
+				<p><span class="title">剧情简介:</span>{{movie.summary}}</p>
+			</div>
+		</div>
+		<div class="col-md-6 video-wrap">
+			
+		</div>
+	</div>
+	<div class="comment-panel">
+		<ul class="comments-list">
+			<li class="comment-title">评论列表</li>
+			{{if comments.length}}
+			{{each comments as comment}}
+			<li class="comment">
+				<div class="comment-img">
+					<img src="/images/noavatar_default.png" />
+				</div>
+				<div class="comment-body">
+					<p>
+						<a href="#">{{comment.from.name}}</a>
+					</p>
+					<div class="comment-content">
+						{{comment.content}}
+					</div>
+					<p class="toolbar clearfix">
+						<span class="fl">{{comment.createtime}}</span>
+						<a href="#replay-box" data-cid="{{comment.id}}" toUser="{{comment.from.name}}" userId="{{comment.from.id}}" class="fr">回复</a>
+					</p>
+				</div>
+				{{if comment.reply}}
+				{{each comment.reply as reply index}}
+					<div class="reply">
+						<div class="comment-img">
+							<img src="/images/noavatar_default.png" />
+						</div>
+						<div class="comment-body">
+							<p>
+								<a href="#">{{reply.from.name}}</a>
+								<span class="text-primary">回复</span>
+								<a href="#">{{reply.to.name}}</a>
+							</p>
+							<div class="comment-content">
+								{{reply.content}}
+							</div>
+							<p class="toolbar clearfix">
+								<span class="fl">{{reply.createtime}}</span>
+								<a href="#replay-box" data-cid="{{comment.id}}" toUser="{{reply.from.name}}" userId="{{reply.from.id}}" class="fr">回复</a>
+							</p>
+						</div>
+					</div>
+				{{/each}}
+				{{/if}}
+			</li>
+			{{/each}}
+			{{else}}
+			<li class="comment-empty">暂无评论</li>
+			{{/if}}
+		</ul>
+		{{if user}}
+		<div class="replybox" id="replay-box">
+			<img src="/images/noavatar_default.png" />
+			<form method="post" action="/movie/comment/reply" id="replay-form">
+				<input type="hidden" name="comment[from]" value="{{user._id}}" />
+				<input type="hidden" name="comment[movie]" value="{{movie.id}}" />
+				<div class="textarea-wrap">
+					<textarea name="comment[content]" placeholder="说点什么吧..."></textarea>
+				</div>
+				<div class="post-toolbar">
+					<p>
+						<span class="ba-mr-20">评论人：{{user.name}}</span>
+						<span class="none"> 回复：<strong reply-user></strong></span>
+					</p>
+					<input type="submit" class="post-btn" value="评论" />
+				</div>
+			 </form>
+		{{else}}
+		 <div class="nologin">
+		 	只有登录了才能参与评论，快<a href="/register">登录</a>！如果你还没有账号你可以<a href="/register">注册</a>一个账号。
+		 </div>
+		{{/if}}
+	</div>
+	<script type="text/javascript" src="/js/detail.js"></script>
+</div>
+</div>
+</body>
+</html>

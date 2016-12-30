@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" href="/css/addEdit.css">
+</head>
+<body>
+	<div class="container">
+		<h1>{{title}}</h1>
+		<form method="post" action="/admin/movie/add" class="form-horizotal">
+			<div class="input-group">
+				<span class="input-group-addon">电影名</span>
+				<input type="text" class="form-control" name="movie[title]" placeholder="电影名称" value="{{movie.title}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">导演</span>
+				<input type="text" class="form-control" name="movie[director]" placeholder="导演" value="{{movie.director}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">主演</span>
+				<input type="text" class="form-control" name="movie[actors]" placeholder="主演" value="{{movie.actors}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">语言</span>
+				<input type="text" class="form-control" name="movie[language]" placeholder="语言" value="{{movie.language}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">国家</span>
+				<input type="text" class="form-control" name="movie[country]" placeholder="国家" value="{{movie.country}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">封面图片</span>
+				<input type="text" class="form-control" name="movie[poster]" placeholder="封面图片" value="{{movie.poster}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">链接地址</span>
+				<input type="text" class="form-control" name="movie[flash]" placeholder="链接地址" value="{{movie.flash}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">上映时间</span>
+				<input type="text" class="form-control" name="movie[year]" placeholder="上映时间" value="{{movie.year}}">
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon">剧情简介</span>
+				<textarea class="form-control" name="movie[summary]" placeholder="剧情简介">{{movie.summary}}</textarea>
+			</div>
+			<input type="hidden" name="movie[_id]" value="{{movie.id}}">
+			<button type="submit" class="btn btn-primary" id="submitForm">提交</button>
+		</form>
+	</div>
+	<script src="/js/addEdit.js"></script>
+</body>
+</html>

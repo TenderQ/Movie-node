@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+</head>
+<body>
+<div class="container">
+	<div class="col-md-6">
+		<h1>{{title}}</h1>
+		<form method="post" action="/user/signup" class="form-horizotal">
+			<div class="input-group ba-mt-25">
+				<span class="input-group-addon">用户名</span>
+				<input type="text" class="form-control" name="user[name]" placeholder="用户名" >
+			</div>
+			<div class="input-group ba-mt-25">
+				<span class="input-group-addon">密码</span>
+				<input type="password" class="form-control" name="user[password]" placeholder="密码" >
+			</div>
+			<div class="input-group ba-mt-25">
+				<span class="input-group-addon">确认密码</span>
+				<input type="password" class="form-control" placeholder="确认密码" >
+			</div>
+			<button type="submit" class="btn btn-primary ba-mt-25" id="submitForm">注册</button>
+		</form>
+	</div>
+</div>
+</body>
+</html>

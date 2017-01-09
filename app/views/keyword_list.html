@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" href="/css/base.css">
+	<link rel="stylesheet" href="/css/list.css">
+</head>
+<body>
+<div class="list-container">
+	<table class="table table-list">
+		<thead>
+			<tr class="table-title">
+				<th scope="col" colspan="4">{{title}}</th>
+			</tr>
+			<tr class="table-header">
+				<th width="10%">ID</th>
+				<th width="50%">关键词</th>
+				<th width="20%">搜索次数</th>
+				<th width="20%">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{if keywords.length}}
+        	{{each keywords as keyword index}}
+        	<tr>
+        		<td>{{index + 1}}</td>
+        		<td>{{keyword.keyword}}</td>
+        		<td>{{keyword.count}}</td>
+        		<td>
+        			<a href="javascript:;" class="btn-opt" onclick="delete_key(this,'{{keyword.id}}')"><i class="fa fa-trash-o"></i></a>
+        		</td>
+        	</tr>
+        	{{/each}}
+        	{{else}}
+        	<tr>
+        		<td colspan="4">暂无记录</td>
+        	</tr>
+        	{{/if}}
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript" src="/libs/layer/layer.min.js"></script>
+<script type="text/javascript" src="/libs/dataTables/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="/js/list.js"></script>
+</body>
+</html>

@@ -10,33 +10,78 @@
 {{include '/include/nav-search'}}
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 col-xs-12">
-			<ul class="nav nav-pills tab-pane" id="movieTab">
-				<li class="active">
-					<a href="#hot-movie" data-toggle="tab">热门电影</a>
-				</li>
-				<li>
-					<a href="#new-movie" data-toggle="tab">最新电影</a>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane active fade in row" id="hot-movie">
-					{{each movies}}
-					<div class="col-xs-6 col-md-3">
-						<a href="/movie/{{$value.id}}" class="thumbnail">
-							<img src="{{$value.poster}}" alt="{{$value.title}}">
-						</a>
+		<div class="col-md-9 col-xs-12" >
+			<div class="alert alert-info">所有电影</div>
+			<div id="movie-container">
+			{{each category as item}}
+			{{if item.movies && item.movies.length>0}}
+				{{each item.movies}}
+				<div class="col-xs-6 col-md-3 movie-box">
+					<div class="movie-item">
+						<div class="movie-post">
+							<a href="/movie/{{$value.id}}">
+								<img src="{{$value.poster}}" alt="{{$value.title}}">
+								<div class="zoomOverlay"></div>
+							</a>
+						</div>
+						<h3>
+							<a href="/movie/{{$value.id}}">{{$value.title}}({{$value.year}})</a>
+						</h3>
+						<div class="info">
+							<span class="info-data">
+								<span class="glyphicon glyphicon-eye-open"></span>
+								{{$value.pv}}
+							</span>
+							<span class="info-data">
+								<span class="fa fa-comment"></span>
+								{{$value.comments}}
+							</span>
+							<span class="info-data">
+								<span class="glyphicon glyphicon-film"></span>
+								<a href="/search?cat={{item.id}}&p=0">{{item.name}}</a>
+							</span>
+						</div>
 					</div>
-					{{/each}}
 				</div>
-				<div class="tab-pane fade clearfix" id="new-movie">
-					...
-				</div>
+				{{/each}}
+			{{/if}}
+			{{/each}}
 			</div>
 		</div>
-		<div class="col-md-4 col-xs-12">
+		<div class="col-md-3 col-xs-12">
+			<div class="panel panel-danger ranks">
+				<div class="panel-heading">热门电影</div>
+  				<div class="panel-body">
+  					{{if ranks && ranks.length}}
+	    			{{each ranks as movie index}}
+	    			<p>
+	 					<span class="label label-danger">{{index+1}}</span>
+    					<a href="/movie/{{movie.id}}">{{movie.title}}</a>
+	    			</p>
+	    			{{/each}}
+	    			{{else}}
+	    			<p class="text-center">暂无电影</p>
+	    			{{/if}}
+  				</div>
+			</div>
+			<div class="panel panel-warning categorys">
+				<div class="panel-heading">全部分类</div>
+  				<div class="panel-body">
+  					{{if category && category.length}}
+	    			{{each category as item}}
+					<a class="btn btn-primary ba-mb-5" href="/search?cat={{item.id}}&p=0">
+					  	{{item.name}} <span class="badge">{{item.movies.length}}</span>
+					</a>
+					{{/each}}
+					{{else}}
+					<p class="text-center">暂无分类</p>
+					{{/if}}
+  				</div>
+			</div>
 		</div>
 	</div>
 </div>
+{{include '/include/footer'}}
+<script type="text/javascript" src="/js/index.js"></script>
 </body>
 </html>

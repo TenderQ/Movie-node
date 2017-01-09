@@ -1,0 +1,132 @@
+body{
+    background: #f7fafc;
+    font-family: '黑体';
+    overflow: hidden;
+}
+.main-content{
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    padding: 40px 0;
+    
+    .title{
+        margin-bottom: 30px;
+        a{
+            color: #0f88eb;
+        }
+    }
+}
+.tab-nav{
+    display: inline-block;
+    position: relative;
+    a{
+        display: inline-block;
+        width: 4em;
+        line-height: 35px;
+        color: #888;
+        font-size: 18px;
+        text-decoration: none;
+        &:hover{
+            color: #333;
+        }
+        &.active{
+            color:#0f88eb;
+        }
+    }
+    #nav-slider-bar{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        margin: 0 1em;
+        width: 3.2em;
+        height: 2px;
+        background: #0f88eb;
+        -webkit-transition: left .15s ease-in;
+        transition: left .15s ease-in;
+    }
+}
+.tab-nav[data-index="1"] #nav-slider-bar {   
+    left: 5.5em;
+}
+.tab{
+    width: 300px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: left;
+    display: none;
+    
+    button{
+        margin-top: 18px;
+        line-height: 28px;
+        font-size: 16px;
+    }
+}
+.group-input{
+    padding: 1px 0;
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+    .input-wrap{
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        
+        &:last-child{
+            input{
+                border-bottom: none;  
+            }
+        }
+        
+        input{
+            font-family: '微软雅黑';
+            border: 0;
+            border-radius: 0;
+            background: #fff;
+            padding: 1em .8em;
+            width: 100%;
+            box-sizing: border-box;
+            line-height: 19px;
+            color: #555;
+            border-bottom: 1px solid #d5d5d5;
+            
+            &::-webkit-input-placeholder{ 
+                color:#ccc;
+            } 
+            &:-ms-input-placeholder,{
+                color:#ccc;
+            }
+        }
+        
+        label.error{
+            position: absolute;
+            top: 0;
+            right: 8px;
+            padding: 0 8px;
+            line-height: 47px;
+            color: #c33;
+            cursor: text;
+            background: #fff;
+            background: -webkit-linear-gradient(left,rgba(255,255,255,0),#fff 8px);
+            background: linear-gradient(to right,rgba(255,255,255,0),#fff 8px);
+            visibility: hidden;
+            opacity: 0;
+            -ms-filter: "alpha(Opacity=0)";
+            -webkit-transform: translate(20px,0);
+            -ms-transform: translate(20px,0);
+            transform: translate(20px,0);
+            -webkit-transition: .25s ease-out;
+            transition: .25s ease-out;
+        }
+        label.visible{
+            visibility: visible;
+            opacity: 1;
+            -ms-filter: "alpha(Opacity=100)";
+            -webkit-transform: translate(0,0);
+            -ms-transform: translate(0,0);
+            transform: translate(0,0);
+        }
+    }
+}

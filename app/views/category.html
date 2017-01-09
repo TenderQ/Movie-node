@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" href="/css/addEdit.css">
+</head>
+<body>
+	<div class="container">
+		<form method="post" action="/admin/category/add" class="form-horizotal" id="form-category">
+			<div class="input-group">
+				<span class="input-group-addon">分类名称</span>
+				<input type="text" class="form-control" name="category[name]" placeholder="分类名称" value="{{category.name}}">
+			</div>
+			<input type="hidden" name="category[_id]" value="{{category.id}}">
+			<button type="submit" class="btn btn-primary" id="submitForm"><i class="fa fa-save"></i>提交</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" type="text/css" href="/css/search.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/pager.css"/>
+</head>
+<body>
+{{include '/include/nav-top'}}
+{{include '/include/nav-search'}}
+<div class="container">
+	<div class="row">
+		<div class="col-md-9 col-xs-12">
+			<div class="alert alert-info">搜索关键词：{{keyword}}</div>
+			{{if movies && movies.length>0}}
+			{{each movies as movie}}
+			<div class="media movie-list">
+  				<a class="media-left" href="/movie/{{movie.id}}">
+    				<img src="{{movie.poster}}">
+  				</a>
+  				<div class="media-body">
+    				<h4 class="media-heading"><a href="/movie/{{movie.id}}">{{movie.title}}&nbsp;({{movie.year}})</a></h4>
+    				<div class="movie-summary">{{movie.summary}}</div>
+    				<div class="movie-info">
+    					<span>导演：{{movie.director}}</span>
+    					<span class="ba-ml-15">制片地区：{{movie.country}}</span>
+    				</div>
+ 				</div>
+			</div>
+			{{/each}}
+			<div id="pagerWrap" pageTotal="{{totalPage}}" pageCurrent="{{currentPage}}">
+		        <pager :total="{{totalPage}}" :current="{{currentPage}}"></pager>
+		    </div>
+			{{else}}
+			暂无查询结果
+			{{/if}}
+		</div>
+		<div class="col-md-3 col-xs-12">
+			<div class="panel panel-success">
+				<div class="panel-heading">热搜关键词</div>
+  				<div class="panel-body">
+  					{{if keywords && keywords.length}}
+  					{{each keywords}}
+  					<a href="/search?search_text={{$value.keyword}}" class="search-link"><span class="label label-default">{{$value.keyword}}</span></a>
+  					{{/each}}
+  					{{else}}
+  					<p class="text-center">暂无搜索记录</p>
+  					{{/if}}
+  				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{include '/include/footer'}}
+<script src="/libs/vue.js"></script>
+<script src="/js/search.js"></script>
+</body>
+</html>

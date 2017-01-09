@@ -9,38 +9,50 @@
 {{include '/include/nav-top'}}
 {{include '/include/nav-search'}}
 <div class="container">
-	<h2 class="movie-name">{{movie.title}}</h2>
 	<div class="row">
+		<h2 class="movie-name">{{movie.title}}</h2>
 		<div class="col-md-6 clearfix">
-			<div class="main-pic col-md-4">
+			<div class="main-post col-md-3">
 				<img src="{{movie.poster}}">
 			</div>
-			<div class="info col-md-8">
+			<div class="info col-md-9">
 				<p><span class="title">导演:</span>{{movie.director}}</p>
 				<p><span class="title">主演:</span>{{movie.actors}}</p>
 				<p><span class="title">语言:</span>{{movie.language}}</p>
 				<p><span class="title">制片国家:</span>{{movie.country}}</p>
-				<p><span class="title">预告片:</span><a href="{{movie.flash}}">预告片地址</a></p>
 				<p><span class="title">上映时间:</span>{{movie.year}}</p>
-				<p><span class="title">剧情简介:</span>{{movie.summary}}</p>
+			</div>
+			<div class="summary col-md-12">
+				<div class="alert alert-success">剧情简介</div>
+				<p>{{movie.summary}}</p>
 			</div>
 		</div>
 		<div class="col-md-6 video-wrap">
-			
+			<div class="panel panel-default ranks">
+				<div class="panel-heading">下载地址</div>
+  				<div class="panel-body">
+  					{{if movie.flash}}
+  					<input class="form-control" type="text" value="{{movie.flash}}">
+  					{{else}}
+  					<input class="form-control" type="text" disabled value="暂无下载">
+  					{{/if}}
+  				</div>
+			</div>
 		</div>
 	</div>
 	<div class="comment-panel">
 		<ul class="comments-list">
 			<li class="comment-title">评论列表</li>
 			{{if comments.length}}
-			{{each comments as comment}}
+			{{each comments as comment floor}}
 			<li class="comment">
 				<div class="comment-img">
 					<img src="/images/noavatar_default.png" />
 				</div>
 				<div class="comment-body">
-					<p>
-						<a href="#">{{comment.from.name}}</a>
+					<p class="clearfix">
+						<a href="javascript:;" class="fl">{{comment.from.name}}</a>
+						<span class="fr">#{{floor+1}}</span>
 					</p>
 					<div class="comment-content">
 						{{comment.content}}
@@ -58,9 +70,9 @@
 						</div>
 						<div class="comment-body">
 							<p>
-								<a href="#">{{reply.from.name}}</a>
+								<a href="javascript:;">{{reply.from.name}}</a>
 								<span class="text-primary">回复</span>
-								<a href="#">{{reply.to.name}}</a>
+								<a href="javascript:;">{{reply.to.name}}</a>
 							</p>
 							<div class="comment-content">
 								{{reply.content}}
@@ -98,12 +110,13 @@
 			 </form>
 		{{else}}
 		 <div class="nologin">
-		 	只有登录了才能参与评论，快<a href="/register">登录</a>！如果你还没有账号你可以<a href="/register">注册</a>一个账号。
+		 	只有登录了才能参与评论，快<a href="/register#signin">登录</a>！如果你还没有账号你可以<a href="/register#signup">注册</a>一个账号。
 		 </div>
 		{{/if}}
+		</div>
 	</div>
-	<script type="text/javascript" src="/js/detail.js"></script>
 </div>
-</div>
+{{include '/include/footer'}}
+<script type="text/javascript" src="/js/detail.js"></script>
 </body>
 </html>

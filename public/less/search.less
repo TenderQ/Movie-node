@@ -1,0 +1,48 @@
+.movie-list{
+    padding-bottom: 15px;
+    border-bottom: 1px #ccc dashed;
+    -webkit-animation:fadeInUp .3s .2s ease both;
+    -moz-animation:fadeInUp .3s .2s ease both;
+    img{
+        width: 80px;
+        height: auto;
+    }
+    .media-body{
+        padding-left: 10px;
+        .media-heading{
+           
+            a{
+                display: inline-block;
+                font-size: 14px;
+                padding: 4px 5px;
+                color: #37a;
+                &:hover{
+                    color: #fff;
+                    background: #37a;
+                }
+            }
+        }
+        .movie-summary{
+            text-indent: 2em;
+            line-height: 1.5rem;
+            margin: 15px 0;
+            color: #666;
+            font-size: 12px;
+            overflow:hidden;
+            word-break:break-all;
+            text-overflow:ellipsis;
+            -webkit-box-orient: vertical;
+            display:box;
+            display: -webkit-box;
+            -webkit-line-clamp:2;
+        }
+        .movie-info{
+            color: #666;
+            font-size: 12px;
+        }
+    }
+}
+.search-link{
+    display: inline-block;
+    margin-bottom: 15px;
+}

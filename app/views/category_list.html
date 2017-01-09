@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	{{include '/include/head'}}
+	<link rel="stylesheet" href="/css/base.css">
+	<link rel="stylesheet" href="/css/list.css">
+</head>
+<body>
+<div class="list-container">
+	<div class="clearfix list-header"> 
+		<span class="fl">
+			<a href="javascript:;" onClick="show_layer('添加分类','/admin/category','600','300')"  class="btn btn-primary">
+				<i class="fa fa-plus"></i> 添加分类
+			</a>
+		</span> 
+		<span class="fr">共有数据：<strong>{{categorys.length}}</strong> 条</span> 
+	</div>
+	<table class="table table-list">
+		<thead>
+			<tr class="table-title">
+				<th scope="col" colspan="4">{{title}}</th>
+			</tr>
+			<tr class="table-header">
+				<th width="10%">ID</th>
+				<th width="40%">分类名称</th>
+				<th width="30%">电影数量</th>
+	            <th width="20%">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{if categorys.length}}
+        	{{each categorys as category index}}
+        	<tr>
+        		<td>{{index + 1}}</td>
+        		<td>{{category.name}}</td>
+        		<td>{{category.movies.length}}</td>
+        		<td>
+        			<a href="javascript:;" onClick="show_layer('分类编辑','/admin/category/edit/{{category.id}}','600','300')" class="btn-opt"><i class="fa fa-pencil"></i></a>
+        			<a href="javascript:;" class="btn-opt" onclick="delete_cat(this,'{{category.id}}')"><i class="fa fa-trash-o"></i></a>
+        		</td>
+        	</tr>
+        	{{/each}}
+        	{{else}}
+        	<tr>
+        		<td colspan="4">暂无记录</td>
+        	</tr>
+        	{{/if}}
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript" src="/libs/layer/layer.min.js"></script>
+<script type="text/javascript" src="/libs/dataTables/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="/js/list.js"></script>
+</body>
+</html>

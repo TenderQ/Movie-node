@@ -4,79 +4,64 @@
 	<title>{{title}}</title>
 	{{include '/include/head'}}
 	<link rel="stylesheet" href="/css/base.css">
-	<link rel="stylesheet" href="/libs/dataTables/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="/css/list.css">
 </head>
 <body>
-	<div class="container">
-		<h1>{{title}}</h1>
-		<table class="table table-striped">
-			<thead>
-	            <tr>
-	                <th>电影名</th>
-	                <th>导演</th>
-	                <th>主演</th>
-	                <th>制片国家</th>
-	                <th>语言</th>
-	                <th>上映时间</th>
-	                <th>预告片地址</th>
-	                <th>操作</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	        	{{if movies.length}}
-	        	{{each movies}}
-	        	<tr>
-	        		<td>{{$value.title}}</td>
-	        		<td>{{$value.director}}</td>
-	        		<td>{{$value.actors}}</td>
-	        		<td>{{$value.country}}</td>
-	        		<td>{{$value.language}}</td>
-	        		<td>{{$value.year}}</td>
-	        		<td><a target="_blank" href="{{$value.flash}}" class="btn btn-link">观看预告片</a></td>
-	        		<td>
-	        			<a href="/admin/movie/addEdit/{{$value.id}}" class="btn btn-primary">编辑</a>
-	        			<a href="javascript:;" class="btn btn-danger" delete-movie="{{$value.id}}" >删除</a>
-	        		</td>
-	        	</tr>
-	        	{{/each}}
-	        	{{else}}
-	        	<tr>
-	        		<td colspan="8">暂无记录</td>
-	        	</tr>
-	        	{{/if}}
-	        </tbody>
-		</table>
+<div class="list-container">
+	<div class="clearfix list-header"> 
+		<span class="fl">
+			<a href="javascript:;" onClick="show_layer('添加电影','/admin/movie/addEdit','800','500')"  class="btn btn-primary">
+				<i class="fa fa-plus"></i> 添加电影
+			</a>
+		</span> 
+		<span class="fr">共有数据：<strong>{{movies.length}}</strong> 条</span> 
 	</div>
-	
-	<script src="/libs/dataTables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		$("table").DataTable({
-			"oLanguage" : {
-                "sLengthMenu": "每页显示 _MENU_ 条记录",
-                "sZeroRecords": "抱歉， 没有找到",
-                "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",
-                "sInfoEmpty": "没有数据",
-                "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
-                "sZeroRecords": "没有检索到数据",
-                 "sSearch": "搜索:",
-                "oPaginate": {
-                "sFirst": "首页",
-                "sPrevious": "前一页",
-                "sNext": "后一页",
-                "sLast": "尾页"
-                }
-                     
-            }
-		});
-		
-		$("[delete-movie]").click(function(){
-			var data = {id:$(this).attr("delete-movie")};
-			var parent = $(this).parents("tr");
-			$.get("/admin/movie/delete",data,function(data){
-				console.log(data)
-				parent.remove();
-			})
-		});
-	</script>
+	<table class="table table-list">
+		<thead>
+			<tr class="table-title">
+				<th scope="col" colspan="9">{{title}}</th>
+			</tr>
+			<tr class="table-header">
+				<th width="5%">ID</th>
+				<th width="15%">名称</th>
+				<th width="15%">导演</th>
+				<th width="15%">演员</th>
+				<th width="10%">制片国家</th>
+				<th width="7%">语言</th>
+				<th width="10%">上映年份</th>
+				<th width="8%">浏览量</th>
+				<th width="15%">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{if movies.length}}
+        	{{each movies as movie index}}
+        	<tr>
+        		<td>{{index+1}}</td>
+        		<td>{{movie.title}}</td>
+        		<td>{{movie.director}}</td>
+        		<td>{{movie.actors}}</td>
+        		<td>{{movie.country}}</td>
+        		<td>{{movie.language}}</td>
+        		<td>{{movie.year}}</td>
+        		<td>{{movie.pv}}</td>
+        		<td>
+        			<a href="javascript:;" onClick="show_layer('电影编辑','/admin/movie/addEdit/{{movie.id}}','800','500')" class="btn-opt"><i class="fa fa-pencil"></i></a>
+        			<a href="javascript:;" class="btn-opt" onClick="delete_movie(this,'{{movie.id}}')"><i class="fa fa-trash-o"></i></a>
+        		</td>
+        	</tr>
+        	{{/each}}
+        	{{else}}
+        	<tr>
+        		<td colspan="9">暂无记录</td>
+        	</tr>
+        	{{/if}}
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript" src="/libs/layer/layer.min.js"></script>
+<script type="text/javascript" src="/libs/dataTables/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="/js/list.js"></script>
 </body>
 </html>

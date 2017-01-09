@@ -1,46 +1,16 @@
 <div class="nav-top">
 	<div class="container-fluid">
 		<div class="fl clearfix">
-			<a href="/movie">电影</a>
-			<a href="/book" class="ba-ml-10">小说</a>
+			<a href="/">电影</a>
 		</div>
 		<p class="fr tr">
 			{{if user}}
 			<a href="javascript:;">{{user.name}}</a><span>&nbsp;|&nbsp;</span>
 			<a href="/user/logout">注销</a>
 			{{else}}
-			<a href="/register">注册</a><span>&nbsp;|&nbsp;</span>
-			<a href="#" data-toggle="modal" data-target="#loginBox">登录</a>
+			<a href="/register#signup">注册</a><span>&nbsp;|&nbsp;</span>
+			<a href="/register#signin">登录</a>
 			{{/if}}
 		</p>
-	</div>
-</div>
-
-<div class="modal fade" id="loginBox">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span>&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">用户登录</h4>
-			</div>
-			<form method="post" action="/user/signin">
-				<div class="modal-body">
-					<div class="input-group">
-						<span class="input-group-addon"><span class="fa fa-user"></span></span>
-						<input type="text" class="form-control" name="user[name]" placeholder="用户名">
-					</div>
-					<div class="input-group ba-mt-20">
-						<span class="input-group-addon"><span class="fa fa-lock"></span></span>
-						<input type="password" class="form-control" name="user[password]" placeholder="密码">
-					</div>	
-				</div>
-				<div class="modal-footer">
-					<button type="submit"  class="btn btn-primary">登录</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				</div>
-			</form>
-		</div>
 	</div>
 </div>

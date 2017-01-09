@@ -1,28 +1,42 @@
 var _ = require('underscore');
 var Movie = require('../models/movie');
+var Category = require('../models/category');
 var Comment = require('../models/comment');
+var fs =require('fs');
+var path = require('path');
 
 exports.movie= function(req, res) {
-	res.render('addEdit',{
-		title: '后台录入',
-		movie:{
-			director:'',
-			actors: '',
-			country:'',
-			title:'',
-			year:'',
-			poster:'',
-			language:'',
-			flash:'',
-			summary:''
-		}
+	Category.fetch(function(err,categorys){
+		res.render('addEdit',{
+			title: '后台录入',
+			movie:{
+				director:'',
+				actors: '',
+				country:'',
+				title:'',
+				year:'',
+				poster:'',
+				language:'',
+				flash:'',
+				summary:''
+			},
+			categorys: categorys
+		})
 	})
+	
 }
 
 exports.detail = function(req, res) {
 	var id = req.params.id;
-
+	
+	Movie.update({_id:id},{$inc:{pv:1}},function(err){
+		if(err){
+			console.log(err);
+		}
+	})
+	
 	Movie.findById(id, function(err,movie){
+		
 		Comment
 		  .find({movie:id})
 		  .populate("from","name")
@@ -32,7 +46,7 @@ exports.detail = function(req, res) {
 				console.log(err);
 			}
 			res.render('detail',{
-				title: '电影详情',
+				title: movie.title + ' - 详情',
 				movie: movie,
 				comments: comments
 			})
@@ -48,10 +62,16 @@ exports.update = function(req, res) {
 			if(err){
 				console.log(err);
 			}
-			res.render('addEdit',{
-				title: '电影编辑',
-				movie: movie
-			})
+			Category.fetch(function(err,categorys){
+				if(err){
+					console.log(err);
+				}
+				res.render('addEdit',{
+					title: '电影编辑',
+					movie: movie,
+					categorys: categorys
+				})
+			});
 		});
 	}
 }
@@ -60,7 +80,12 @@ exports.add = function(req,res){
 	var id = req.body.movie._id;
 	var movieObj = req.body.movie;
 	var _movie;
-	if(id !== ''){
+
+//	if(req.poster){
+//		movieObj.poster = req.poster;
+//	}
+	
+	if(id){
 		Movie.findById(id,function(err,movie){
 			if(err){
 				console.log(err);
@@ -71,27 +96,29 @@ exports.add = function(req,res){
 				if(err){
 					console.log(err);
 				}
-				res.redirect('/movie/'+_movie.id)
+//				res.redirect('/movie/'+_movie.id)
+				res.json({"success":true,"data":"编辑电影成功"});
 			})
 		})
 	} else {
-		_movie = new Movie({
-			director: movieObj.director,
-			title: movieObj.title,
-			country: movieObj.country,
-			language: movieObj.language,
-			year: movieObj.year,
-			actors: movieObj.actors,
-			poster: movieObj.poster,
-			summary: movieObj.summary,
-			flash: movieObj.flash,
-		})
-
+		_movie = new Movie(movieObj);
+		
+		var categoryId = _movie.category;
+		
 		_movie.save(function(err,movie){
 			if(err){
 				console.log(err);
 			}
-			res.redirect('/');
+			Category.findById(categoryId,function(err,category){
+				if(err){
+					console.log(err);
+				}
+				category.movies.push(movie._id);
+				category.save(function(err,category){
+//					res.redirect('/admin/movie/list');
+					res.json({"success":true,"data":"添加电影成功"});
+				})
+			})
 		});
 	}
 }
@@ -116,10 +143,51 @@ exports.delete = function(req, res) {
 			if(err){
 				console.log(err);
 			} else {
-				res.json({'success': 1});
+				res.json({'success': true});
 			}
 			
 			
 		})
+	}
+}
+
+exports.fileUpload = function(req,res){
+	var postData = req.files.file;
+	var filePath = postData.path;
+	var originalFilename = postData.originalFilename;
+	
+	if(originalFilename){
+		fs.readFile(filePath,function(err,data){
+			var timestamp = Date.now();
+			var type = postData.type.split('/')[1];
+			var poster = timestamp+'.'+type;
+			var newPath = path.join(__dirname,'../../','public/upload/'+poster);
+			fs.writeFile(newPath,data,function(err){
+				var src = '/upload/' + poster;
+				res.json({'src':src});
+			});
+		});
+	}
+}
+
+exports.uploadPoster = function(req,res,next){
+	var postData = req.files.uploadPoster;
+	
+	var filePath = postData.path;
+	var originalFilename = postData.originalFilename;
+	
+	if(originalFilename){
+		fs.readFile(filePath,function(err,data){
+			var timestamp = Date.now();
+			var type = postData.type.split('/')[1];
+			var poster = timestamp+'.'+type;
+			var newPath = path.join(__dirname,'../../','public/upload/'+poster);
+			fs.writeFile(newPath,data,function(err){
+				req.poster = '/upload/' + poster;
+				next();
+			});
+		});
+	} else {
+		next();
 	}
 }

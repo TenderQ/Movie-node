@@ -1,14 +1,18 @@
 <div class="nav-search">
-	<div class="nav-wrap clearfix">
-		<div class="nav-logo fl">
-			<a href="/"><img src="/images/logo.png" class="img-auto"/></a>
-		</div>
-		<div class="search-wrap fl">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="电影名称">
-				<span class="input-group-btn">
-			    	<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-			    </span>
+	<div class="nav-wrap">
+		<div class="inline-block">
+			<div class="nav-logo">
+				<a href="/"><img src="/images/logo.png"></a>
+			</div>
+			<div class="search-wrap">
+				<form action="/search" method="GET">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="输入关键字后搜索..." name="search_text">
+					<span class="input-group-btn">
+				    	<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+				    </span>
+				</div>
+				</form>
 			</div>
 		</div>
 	</div>

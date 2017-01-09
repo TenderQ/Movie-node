@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>{{title}}</title>
 	{{include '/include/head'}}
-	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/libs/animate.min.css">
+	<link rel="stylesheet" href="/css/admin.css">
 </head>
-<body>
-	<div class="container">
-		<h1>{{title}}</h1>
+<body class="fixed-sidebar full-height-layout gray-bg">
+	<div id="wrapper">
+		<!--左侧导航栏-->
+		<nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i></div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-round" src="/images/admin/profile_small.jpg" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                               <span class="clear">
+	                               <span class="block ba-mt-8"><strong class="font-bold">{{user.name}}</strong></span>
+	                               <span class="text-muted text-xs block ba-mt-5">{{if user.role>10}}超级管理员{{/if}}<b class="caret"></b></span>
+                               </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight ba-mt-5">
+                                <li><a href="/user/logout">退出登录</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">i</div>
+                    </li>
+                    <li>
+                        <a href="/admin" data-index="0"><i class="fa fa-home"></i><span class="nav-label">主页</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="/admin/category/list" data-index="1"><i class="fa fa-list"></i><span class="nav-label">分类管理</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="/admin/movie/list" data-index="2"><i class="fa fa-film"></i><span class="nav-label">电影管理</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="/admin/user/list" data-index="3"><i class="fa fa-user"></i><span class="nav-label">用户管理</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="/admin/keyword/list" data-index="4"><i class="fa fa-key"></i><span class="nav-label">关键词管理</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+		<!--右侧部分-->
+		<div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom visible-xs-block">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                    	<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                </nav>
+            </div>
+            <div class="row content-tabs">
+            	<a class="roll-nav navbar-minimalize" href="#"><i class="fa fa-bars"></i> </a>
+                <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i></button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="/admin">首页</a>
+                    </div>
+                </nav>
+                <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span></button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="javascript:;" class="roll-nav roll-right J_tabExit" id="iframe-refresh">
+                	<i class="fa fa-refresh"></i> 刷新
+                </a>
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/admin/movie/list" frameborder="0" data-id="index_v1.html" seamless></iframe>
+            </div>
+        </div>
 	</div>
+<script src="/libs/layer/layer.min.js"></script>
+<script src="/libs/contabs.min.js"></script>
+<script src="/libs/pace/pace.min.js"></script>
+<script src="/js/admin.js"></script>
 </body>
 </html>

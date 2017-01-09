@@ -1,7 +1,113 @@
+#movie-container{
+    position: relative;
+    margin-bottom: 30px;
+    
+    .movie-box{
+        position: absolute;
+    }
+}
 #movieTab{
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
 }
 #hot-movie{
     padding: 15px 0;
+}
+.movie-box{
+    padding: 0 8px; 
+    margin-bottom:15px;
+}
+.movie-item{
+    background: #fff;
+    border: solid 1px #e3e3e3;
+    border-bottom: solid 1px #ccc;
+    -webkit-animation:fadeInUp .3s .2s ease both;
+    -moz-animation:fadeInUp .3s .2s ease both;
+    border-radius: 2px;
+    font-family: "黑体";
+    transition: box-shadow 0.4s ease; 
+    
+    &:hover{
+        box-shadow: 0px 4px 16px rgba(0,0,0,0.4);
+        transition: box-shadow 0.4s ease;    
+    }
+    
+    .movie-post{
+        max-height: 300px;
+        overflow: hidden;
+        
+        a{
+            display: block;
+            line-height: 30px;
+            padding: 7px 7px 0;
+            position: relative;
+            
+            .zoomOverlay{
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                display: none;
+                margin: 7px 7px 0 7px;
+                background-image: url(/images/zoom.png);
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            
+            &:hover{
+                .zoomOverlay{
+                    opacity: 0.5;
+                    display: block;
+                    background-color: #000;
+                }
+            }
+        }
+        
+        img{
+            width: 100%;
+            height: auto;
+        }
+    }
+    h3{
+        padding: 10px;
+        overflow: hidden;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5em;
+        a{
+            overflow:hidden;
+            word-break:break-all;
+            text-overflow:ellipsis;
+            -webkit-box-orient: vertical;
+            display:box;
+            display: -webkit-box;
+            -webkit-line-clamp:2;
+        }
+    }
+    .info{
+        font-size: 13px;
+        color: #999;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        position: relative;
+        border-top: 1px solid #eee;
+        line-height: 35px;
+        padding: 0 5px;
+        text-align: center;
+        
+        .info-data{
+            margin-right: 5px;
+        }
+    }
+}
+.ranks{
+    p{
+        line-height: 30px;
+        
+        .label{
+            margin-right: 5px;
+        }
+    }
 }

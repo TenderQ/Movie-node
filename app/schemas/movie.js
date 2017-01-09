@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId;
 
-var MovieSchema = new mongoose.Schema({
+var MovieSchema = new Schema({
+	did: String,//豆瓣ID
 	director: String,
 	title: String,
 	actors: String,
@@ -10,6 +13,18 @@ var MovieSchema = new mongoose.Schema({
 	flash: String,
 	poster: String,
 	year: String,
+	pv: {
+		type: Number,
+		default: 0
+	},
+	comments: {
+		type: Number,
+		default: 0
+	},
+	category:{
+		type: ObjectId,
+		ref:'Category'
+	},
 	meta:{
 		createAt:{
 			type:Date,
@@ -39,9 +54,6 @@ MovieSchema.statics = {
 	},
 	delete: function(id,cb){
 		return this.remove({_id: id}).exec(cb);
-	},
-	update: function(id,newObj,cb){
-		return this.update({_id: id},newObj).exec(cb);
 	},
 }
 module.exports = MovieSchema

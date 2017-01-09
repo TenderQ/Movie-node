@@ -9,13 +9,33 @@ var favicon = require('serve-favicon');
 var template = require('art-template');
 var mongoose = require('mongoose');
 var mongoStore = require('connect-mongo')(session);
+var logger = require('morgan');
+var fs = require('fs');
 var app = express();
+var env = process.env.NODE_ENV || 'development';
 
 var dbUrl = 'mongodb://localhost/movie';
 mongoose.Promise = global.Promise;
 app.locals.moment = require('moment');
 mongoose.connect(dbUrl);
 
+//models loading
+var models_path = __dirname + '/app/models';
+var walk = function(path){
+	fs.readdirSync(path).forEach(function(file){
+		var newPath = path + '/' + file;
+		var stat = fs.statSync(newPath);
+		
+		if(stat.isFile()){
+			if(/(.*)\.(js|coffee)/.test(file)){
+				require(newPath);
+			} else if(stat.isDirectory){
+				walk(newPath);
+			}
+		}
+	})
+}
+walk(models_path);
 // 用art-template引擎替换默认的jade引擎
 app.set("views","./app/views");
 template.config('base','');
@@ -28,9 +48,11 @@ app.use(bodyParser.urlencoded({ extended: true, limit:"50mb"}));
 app.use(cookieParser());
 app.use(session({
 	secret:"movie",
+	resave: true, 
+	saveUninitialized: true,
 	store: new mongoStore({
 		url: dbUrl,
-		collection: 'sessions'
+		collection: 'sessions',
 	}),
 	cookie: {maxAge: 1000 * 60 * 60 * 24},
 }));
@@ -42,10 +64,12 @@ app.use(favicon(path.join(__dirname, 'public/images/lib', 'favicon.ico')));
 routes(app);
 
 // 错误处理
-if(app.get('env') === 'development'){
+if(env === 'development'){
 	app.set("showStackError",true);
-//	app.use(logger(':method :url :status'));
+	app.use(logger(':method :url :status'));
 	mongoose.set("debug",true);
 }
-app.listen(port);
+//app.listen(port);
 console.log("server started on port:" + port);
+
+module.exports = app;

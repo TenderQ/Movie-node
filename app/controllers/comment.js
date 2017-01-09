@@ -1,8 +1,10 @@
 var Comment = require('../models/comment');
+var Movie = require('../models/movie');
 
 exports.reply = function(req,res){
 	var _comment = req.body.comment;
 	var movieId = _comment.movie;
+	
 	if(_comment.cid){
 		Comment.findById(_comment.cid,function(err,comment){
 			if(err) console.log(err);
@@ -15,6 +17,9 @@ exports.reply = function(req,res){
 
 			comment.save(function(err,comment){
 				if(err) console.log(err);
+				Movie.update({_id:movieId},{$inc:{comments:1}},function(err){
+					if(err)	console.log(err);
+				})
 				res.redirect('/movie/'+ movieId);
 			})
 		})
@@ -22,6 +27,9 @@ exports.reply = function(req,res){
 		var comment = new Comment(_comment);
 		comment.save(function(err,comment){
 			if(err) console.log(err);
+			Movie.update({_id:movieId},{$inc:{comments:1}},function(err){
+				if(err)	console.log(err);
+			})
 			res.redirect('/movie/'+ movieId);
 		})
 	}	

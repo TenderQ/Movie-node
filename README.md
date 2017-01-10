@@ -1,10 +1,12 @@
 # 基于NodeJs+MongoDB搭建电影网站
 
 ## 网站前端展示
-[![前端](demo1.gif)](demo1.gif)
-
+![login](http://p1.bqimg.com/567571/f3ebb812d8589312.png)
+![首页](http://p1.bqimg.com/567571/44dea3c326d83562.png)
+![详情](http://p1.bqimg.com/567571/662416ac14b042aa.png)
+![列表](http://p1.bqimg.com/567571/5b6961dc9530dcb2.png)
 ## 网站后端展示
-[![后端](demo2.gif)](demo2.gif)
+![后台](http://p1.bqimg.com/567571/5c9ad7c0ed43394e.png)
 
 ## 技术栈
 
@@ -26,10 +28,12 @@
 	- 使用中间件`connect-multiparty`完成图片的上传操作
 	- 使用`underscroe`提供的函数`_.extend`完成对象的继承与覆盖
 	- 使用`Moment.js`格式化时间;
+
 3. Grunt集成
 	- 集成`jshint`对js语法检查，集成`uglify`进行文本压缩，集成`less`进行`less`文件预编译
 	- 集成`nodemon`完成服务器的自动重启
 	- 集成`mocha`完成对用户操作的单元测试
+	
 4. 启动服务器
 ```
 $ npm start

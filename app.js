@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4000;
 var routes = require('./config/router');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -69,7 +69,7 @@ if(env === 'development'){
 	app.use(logger(':method :url :status'));
 	mongoose.set("debug",true);
 }
-//app.listen(port);
+app.listen(port);
 console.log("server started on port:" + port);
 
-module.exports = app;
+// module.exports = app;

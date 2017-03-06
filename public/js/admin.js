@@ -25,8 +25,10 @@ $(document).ready(function() {
 	$("#content-main").css({'height':$(window).height()-42});
 	$("#iframe-refresh").click(function(){
 		var src = $(".page-tabs-content").find('.active').attr('data-id');
-		var currentFrame = $("#content-main").find("iframe[src='"+src+"']")
-		currentFrame[0].contentWindow.location.reload(true);
+		var currentFrame = $("#content-main").find("iframe[src='"+src+"']");
+		if(currentFrame && currentFrame.length>0) {
+			currentFrame[0].contentWindow.location.reload(true);
+		}
 	});
 	function e() {
 		var e = $("body > #wrapper").height() - 61;

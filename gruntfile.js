@@ -10,14 +10,14 @@ module.exports = function(grunt) {
 			},
 			js: {
 				files: ['public/js/**', 'app/**/*.js'],
-//				tasks: ['jshint'],
+				// tasks: ['jshint'],
 				options: {
 					livereload: true
 				}
 			},
 			uglify: {
 			 	files: ['public/**/*.js'],
-			 	tasks: ['jshint'],
+			 	// tasks: ['jshint'],
 			 	options: {
 			 		livereload: true
 			 	}
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 		 	all: ['public/js/*.js', 'test/**/*.js', 'app/**/*.js']
 		},
 
-		 less: {
+		less: {
 		 	development: {
 		 		options: {
 		 			compress: true,
@@ -47,18 +47,46 @@ module.exports = function(grunt) {
 		 			optimization: 2
 		 		},
 		 		files: {
-		 			'public/build/index.css': 'public/less/index.less'
+		 			'public/css/addEdit.css': 'public/less/addEdit.less',
+		 			'public/css/admin.css': 'public/less/admin.less',
+		 			'public/css/detail.css': 'public/less/detail.less',
+		 			'public/css/error.css': 'public/less/error.less',
+		 			'public/css/index.css': 'public/less/index.less',
+		 			'public/css/list.css': 'public/less/list.less',
+		 			'public/css/search.css': 'public/less/search.less',
+		 			'public/css/register.css': 'public/less/register.less',
+		 		}
+		 	},
+		 	build: {
+				options: {
+		 			compress: true,
+		 			yuicompress: true,
+		 			optimization: 2
+		 		},
+		 		files: {
+		 			'build/css/addEdit.css': 'public/less/addEdit.less',
+		 			'build/css/admin.css': 'public/less/admin.less',
+		 			'build/css/detail.css': 'public/less/detail.less',
+		 			'build/css/error.css': 'public/less/error.less',
+		 			'build/css/index.css': 'public/less/index.less',
+		 			'build/css/list.css': 'public/less/list.less',
+		 			'build/css/search.css': 'public/less/search.less',
+		 			'build/css/register.css': 'public/less/register.less',
 		 		}
 		 	}
-		 },
+		},
 
-		 uglify: {
+		uglify: {
 		 	development: {
 		 		files: {
-		 			'public/build/admin.min.js': 'public/js/admin.js',
-		 			'public/build/detail.min.js': [
-		 				'public/js/detail.js'
-		 			]
+		 			'build/js/addEdit.js':  'public/js/addEdit.js',
+		 			'build/js/admin.js':  'public/js/admin.js',
+		 			'build/js/detail.js':  'public/js/detail.js',
+		 			'build/js/category.js':  'public/js/category.js',
+		 			'build/js/index.js':  'public/js/index.js',
+		 			'build/js/list.js':  'public/js/list.js',
+		 			'build/js/page.js':  'public/js/page.js',
+		 			'build/js/register.js':  'public/js/register.js',
 		 		}
 		 	}
 		 },
@@ -89,7 +117,7 @@ module.exports = function(grunt) {
 		},
 
 		concurrent: {
-			tasks: ['nodemon', 'watch', 'less', 'uglify', 'jshint'],
+			tasks: ['nodemon', 'watch', 'less:development'],//'jshint'
 			options: {
 				logConcurrentOutput: true
 			}
@@ -107,6 +135,7 @@ module.exports = function(grunt) {
 	grunt.option('force', true)
 
 	grunt.registerTask('default', ['concurrent'])
+	grunt.registerTask('build', ['less:build','uglify'])
 
 	grunt.registerTask('test', ['mochaTest'])
 }

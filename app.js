@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public/images/lib', 'favicon.ico')));
 
 //路由设置
-//app.use('/', routes);
+// app.use('/', routes);
 routes(app);
 
 // 错误处理
@@ -69,7 +69,7 @@ if(env === 'development'){
 	app.use(logger(':method :url :status'));
 	mongoose.set("debug",true);
 }
-app.listen(port);
-console.log("server started on port:" + port);
+// app.listen(port);
+// console.log("server started on port:" + port);
 
-// module.exports = app;
+module.exports = app;

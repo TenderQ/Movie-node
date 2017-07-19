@@ -69,7 +69,7 @@ if(env === 'development'){
 	app.use(logger(':method :url :status'));
 	mongoose.set("debug",true);
 }
-// app.listen(port);
-// console.log("server started on port:" + port);
+app.listen(port);
+console.log("server started on port:" + port);
 
-module.exports = app;
+// module.exports = app;

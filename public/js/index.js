@@ -22,7 +22,6 @@ function box_location() {
     		boxs.eq(i).css({'top':'0','left' : i * box_width});
     	} else {
     		var min_height = Math.min.apply(null,h);
-    		console.log(h);
     		var minKey = getArrayKey(h, min_height);//最小的值对应的指针
     		h[minKey] += box_height + margin;
     		boxs.eq(i).css({'top': min_height + margin ,'left' : minKey * box_width});

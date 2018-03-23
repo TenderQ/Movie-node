@@ -1,14 +1,13 @@
 # 基于NodeJs+MongoDB搭建电影网站
 
-## [访问网站](http://movie.tenderq.xin)
+## [在线预览](http://movie.tenderq.xin)
 
-## 网站前端展示
-![login](http://p1.bqimg.com/567571/f3ebb812d8589312.png)
-![首页](http://p1.bqimg.com/567571/44dea3c326d83562.png)
-![详情](http://p1.bqimg.com/567571/662416ac14b042aa.png)
-![列表](http://p1.bqimg.com/567571/5b6961dc9530dcb2.png)
-## 网站后端展示
-![后台](http://p1.bqimg.com/567571/5c9ad7c0ed43394e.png)
+## 前言
+本项目纯属个人练习项目，仅供学习和参考。
+
+如遇疑问请加本人企鹅 979628535 交流探讨或者提 Issue
+
+项目技术有些落后，以后可能不会更新了
 
 ## 技术栈
 
@@ -47,6 +46,8 @@ $ node app
 $ grunt build
 ```
 
+> mongodb版本号 3.4.6
+
 > 注意：新建用户时默认权限为0，即普通用户，设置用户为管理员请在mongo命令行使用`db.users.update({name: "admin"},{$set:{role:100}})`命令更改权限
 
 ## 已实现功能
@@ -62,9 +63,3 @@ $ grunt build
 9. 后台用户列表
 10. 后台搜索关键词列表
 11. 电影访问统计
-
-## 待实现功能
-
-1. 评论管理
-2. 个人中心，头像上传
-3. 登录注册验证码

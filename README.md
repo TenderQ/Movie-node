@@ -1,6 +1,6 @@
 # 基于NodeJs+MongoDB搭建电影网站
 
-## [在线预览](http://movie.tenderq.xin)
+## [在线预览](http://movie.yunlongol.cn)
 
 ## 前言
 本项目纯属个人练习项目，仅供学习和参考。
